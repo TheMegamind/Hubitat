@@ -15,11 +15,12 @@
  *   Date            Description
  *   -------------   ---------------------------------------------------------
  *   03-13-2025      1.0.0 Initial Release
- *   03-25-2025      1.0.1 Revise importUrl
+ *   03-15-2025      1.0.1 Revise importUrl
+ *   03-17-2025      1.0.2 Allow http:// as well as https://
  *
  * LINE 30 MAX 
  */
-public static String version() {return "1.0.1"}
+public static String version() {return "1.0.2"}
 
 import groovy.json.JsonBuilder
 
@@ -70,13 +71,11 @@ Boolean autoLogsOff() {
     return true
 }
 
-// Utility methods
-def ensureHttps(String url) {
-    return url.toLowerCase().startsWith("https://") ? url : "https://${url}"
-}
+// Removed the ensureHttps method as requested
 
 def isValidUrl(String url) {
-    def urlPattern = ~/^https:\/\/([A-Za-z0-9\-\.]+)(:\d+)?$/
+    // Modified to allow either http:// or https://
+    def urlPattern = ~/^(https?):\/\/([A-Za-z0-9\-\.]+)(:\d+)?$/
     return urlPattern.matcher(url).matches()
 }
 
@@ -107,7 +106,8 @@ def initialize() {
     }
     // Update state.piConfig with the values (this ensures new values from updateConfig() persist)
     state.piConfig = [ name: piName, url: piUrl, password: piPassword ]
-    state.piConfig.url = ensureHttps(state.piConfig.url)
+    // Removed the call to ensureHttps here
+
     if (!isValidUrl(state.piConfig.url)) {
         logError "Invalid URL for ${piName}: ${state.piConfig.url}"
         sendEvent(name: "blockingStatus", value: STATUS_INVALID_URL)
@@ -197,7 +197,7 @@ def handleBlockingCommand(boolean blockingStatus, Integer timer) {
 
 def setBlockingStatus(String url, String sid, boolean blockingStatus, Integer timer, String piName) {
     try {
-        url = ensureHttps(url)
+        // Removed the call to ensureHttps here
         def payload = blockingStatus ? [blocking: blockingStatus] : [blocking: blockingStatus, timer: timer]
         def fullUrl = "${url}/api/dns/blocking"
         def postParams = [
@@ -252,7 +252,7 @@ def setBlockingStatus(String url, String sid, boolean blockingStatus, Integer ti
 
 def fetchBlockingStatus(String url, String sid, String piName) {
     try {
-        url = ensureHttps(url)
+        // Removed the call to ensureHttps here
         def fullUrl = "${url}/api/dns/blocking"
         logDebug "Child ${piName}: Sending fetchBlockingStatus GET to ${fullUrl}"
         def getParams = [
@@ -330,7 +330,7 @@ def getSessionId() {
 
 def authenticate(String url, String password) {
     try {
-        url = ensureHttps(url)
+        // Removed the call to ensureHttps here
         def payload = password ? new JsonBuilder([password: password]).toString() : '{"password":""}'
         def fullUrl = "${url}/api/auth"
         def postParams = [
