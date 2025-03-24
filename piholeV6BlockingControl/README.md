@@ -45,7 +45,7 @@ The **parent** driver dynamically creates and removes child devices, aggregates 
 
 ## Installation & Configuration
 
-Installation via [**Hubitat Package Manager (HPM)**](https://hubitatpackagemanager.hubitatcommunity.com/installing.html) is recommended to ensure the drivers remain up-to-date with feature updates, bugfixes, or other changes. In HPM, search for the keyword "Pi-hole" and choose the "Pi-hole v6 Multi-Instance Blocking Control Drivers."
+Installation via [**Hubitat Package Manager (HPM)**](https://hubitatpackagemanager.hubitatcommunity.com/installing.html) is recommended to ensure the drivers remain up-to-date with bugfixes, new features, or other changes. In HPM, search for the keyword "Pi-hole" and choose the "Pi-hole v6 Multi-Instance Blocking Control Drivers."
 
 If installed via *HPM*, **skip to Step 3** below.    
 
