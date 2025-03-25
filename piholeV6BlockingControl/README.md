@@ -132,7 +132,7 @@ If installed via *HPM*, **skip to Step 3** below.
    - The parent’s aggregator can interpret these states and set its switch to “error.”
 
 4. **Renaming**  
-   - *Warning**: If a Pi-hole’s `name` is modified in the configuration JSON, the parent will see it as a new device and remove the old child.
+   - _**Warning**_: If a Pi-hole’s `name` is modified in the configuration JSON, the parent will see it as a new device and remove the old child.
 
 ---
 
