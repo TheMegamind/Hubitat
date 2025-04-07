@@ -34,12 +34,7 @@ metadata {
             [ name:"newMode", type:"ENUM", description:"Select new location mode", constraints: AVAILABLE_MODES ]
         ]
         attribute "mode", "string"
-    }
-    
-    // Optionally, add a preference that uses the same constant for a default mode.
-    preferences {
-        input "preferredMode", "enum", title: "Select default mode", options: AVAILABLE_MODES, required: false
-    }
+    } 
 }
 
 def installed() {
